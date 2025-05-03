@@ -1,0 +1,10 @@
+# bases:
+# - ../../base       # Relative path to the base directory
+# patchesStrategicMerge:
+# - replica_count_dev.yaml  # Patch file to merge with the base
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../../base
+patches:
+- path: replica_count_dev.yaml

@@ -27,3 +27,116 @@ Think of this advanced Kustomize project as learning to conduct a symphony orche
 - Description</strong>: To interact with Kubernetes clusters.
 - Installation Guide: [Install and Set Up kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 - Documentation: [kubectl Overview](https://kubernetes.io/docs/reference/kubectl/overview/)
+
+5. AWS CLI Installation
+- Description: To interact with Amazon Web Services.
+- Installation Guide: [Installing the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
+- Documentation</strong>: [AWS CLI Documentation](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html)
+
+6. Amazon EKS Setup
+- Description: For deploying to Amazon Elastic Kubernetes Service.
+- User Guide: [Amazon EKS User Guide](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html)
+
+7. CI/CD Platform Setup
+- Options: Jenkins, GitHub Actions, or AWS CodePipeline.
+- Resources</strong>: [Jenkins](https://www.jenkins.io/doc/book/installing/) [GitHub Actions Documentation](https://docs.github.com/en/actions)
+
+8. Code Editor
+- Description</strong>: For writing and editing configuration files.
+- Recommended Editor:[Visual Studio Code](https://code.visualstudio.com/)
+- Extensions: Kubernetes and YAML extensions.
+
+9. Internet Connection
+- Description: For accessing online resources and documentation.
+
+10. GitHub Account (Optional)
+- Description: For version controlling configurations.
+- Sign Up: [GitHub](https://github.com/)
+
+11. A Computer with Adequate Resources
+- Description: Sufficient computational resources, especially if managing local Kubernetes clusters or Docker.
+
+## Lesson 4.1: Integrating Kustomize into CI/CD Pipelines
+**Objective**: Gain hands-on experience in automating Kubernetes configuration management using Kustomize integrated into GitHub Actions CI/CD workflow.
+### 1. Setting Up GitHub Actions:
+- Ensure you have a GitHub repository for your Kubernetes project with Kustomize configurations.
+- Example repository structure:
+.github/workflows/
+base/
+overlays/
+
+### 2. Configuring the CI/CD Pipeline:
+1. Workflow Definition:
+- Start by defining the name of the workflow and the trigger event (e.g., push to the main branch)
+- Example:
+```yaml
+name: Deploy with Kustomize
+on:
+  push:
+    branches:
+    - main
+
+```
+2. Defining Jobs:
+- Define a job named deploy that runs on an Ubuntu latest environment.
+Example:
+```yaml
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+```
+3. Checking Out Code:
+- Use the `actions/checkout@v2` action to check out your code to the GitHub Actions runner.
+- Example:
+```yaml
+- name: Checkout
+  uses: actions/checkout@v2
+```
+4. Setting Up Kubectl and Kustomize</strong>:
+- Set up `kubectl` and `kustomize` using respective GitHub Actions.
+Example:
+```yaml
+- name: Set up Kubectl
+  uses: azure/setup-kubectl@v1
+- name: Set up Kustomize
+  uses: imranismail/setup-kustomize@v1
+```
+5. Applying Kustomize Configuration:
+- Apply the Kustomize configuration to your Kubernetes cluster.
+- Ensure your GitHub Actions runner is configured to communicate with your Kubernetes cluster.
+- Example:
+```yaml
+- name: Deploy to Kubernetes
+  run: |
+    kustomize build ./overlays/production/ | kubectl apply -f -
+```
+
+Now your YAML file should look something like this:
+
+```yaml
+# Example for GitHub Actions
+name: Deploy with Kustomize
+on:
+  push:
+    branches:
+    - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Set up Kubectl
+      uses: azure/setup-kubectl@v1
+    - name: Set up Kustomize
+      uses: imranismail/setup-kustomize@v1
+    - name: Deploy to Kubernetes
+      run: |
+        kustomize build ./overlays/production/ | kubectl apply -f -
+
+```
+- **Note**: Ensure your CI/CD platform has access to your Kubernetes cluster.
+
+### 3. Testing the CI/CD Pipeline:

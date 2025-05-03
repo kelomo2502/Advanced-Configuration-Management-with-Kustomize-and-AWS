@@ -1,0 +1,15 @@
+resources:
+  - deployment.yaml  # List of resource files to include in this configuration
+
+configMapGenerator:
+  - name: my-configmap  # Name of the ConfigMap
+    literals:
+      - key1=value1       # Key-value pairs
+      - key2=value2
+
+secretGenerator:
+  - name: my-secret     # Name of the Secret
+    literals:
+      - username=admin    # Key-value pairs; consider external management for real secrets
+      - password=s3cr3t
+ 
