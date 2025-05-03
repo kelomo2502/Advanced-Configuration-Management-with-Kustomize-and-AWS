@@ -20,4 +20,4 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          kustomize build ./overlays/production/ | kubectl apply -f -
+          kustomize build ./overlays/prod/ | kubectl apply -f -
