@@ -140,3 +140,12 @@ jobs:
 - **Note**: Ensure your CI/CD platform has access to your Kubernetes cluster.
 
 ### 3. Testing the CI/CD Pipeline:
+1. Make Configuration Changes:
+- Modify a Kustomize configuration in your repository, such as changing the replica count in an overlay.
+
+2. Commit and Push Changes:
+- Commit your changes to the repository and push them to the main branch.
+- Example commands:
+`git add .`
+`git commit -m "Update Kustomize configuration"`
+`git push origin main`
